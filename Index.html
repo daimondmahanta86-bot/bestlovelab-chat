@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#be185d">
+    <title>LoveLab 🧪💖 — Daimond & Subhashree's Private Space</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Gun.js for Zero-Config Cross-Phone Real-Time Sync on GitHub Pages -->
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-outer: #fdf2f8;
+            --bg-app: #fff8fa;
+            --bg-header: #be185d;
+            --bg-input: #ffffff;
+            --bg-incoming: #ffffff;
+            --bg-outgoing: #dcf8c6;
+            --text-primary: #27101c;
+            --text-secondary: #703b54;
+            --accent: #e11d48;
+            --border-subtle: rgba(190, 24, 93, 0.14);
+        }
+
+        .theme-midnight {
+            --bg-outer: #130918;
+            --bg-app: #1c1023;
+            --bg-header: #2c1536;
+            --bg-input: #341b40;
+            --bg-incoming: #2c1736;
+            --bg-outgoing: #064e3b;
+            --text-primary: #fdf2f8;
+            --text-secondary: #f9a8d4;
+            --accent: #fb7185;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-outer);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-cute {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        /* WhatsApp-style Romantic Science Doodle Wallpaper */
+        .chat-wallpaper {
+            background-color: var(--bg-app);
+            position: relative;
+        }
+
+        .chat-wallpaper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='96' height='96' viewBox='0 0 96 96' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23e11d48' stroke-width='1.3' opacity='0.12'%3E%3Cpath d='M26 24 C26 19 20 17 17 21 C14 17 8 19 8 24 C8 30 17 35 17 35 C17 35 26 30 26 24 Z'/%3E%3Ccircle cx='70' cy='24' r='4'/%3E%3Cellipse cx='70' cy='24' rx='13' ry='4.5' transform='rotate(30 70 24)'/%3E%3Cellipse cx='70' cy='24' rx='13' ry='4.5' transform='rotate(-30 70 24)'/%3E%3Cpath d='M58 66 L69 81 L47 81 Z'/%3E%3Ccircle cx='22' cy='72' r='6'/%3E%3Ccircle cx='34' cy='72' r='6'/%3E%3Cline x1='28' y1='72' x2='28' y2='72'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(225, 29, 72, 0.3); border-radius: 999px; }
+
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        @keyframes blinkEyes {
+            0%, 92%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.1); }
+        }
+        @keyframes atomOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes shakeWrong {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-7px); }
+            40%, 80% { transform: translateX(7px); }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes riseHeart {
+            0% { opacity: 1; transform: translateY(0) scale(0.75) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-380px) scale(1.5) rotate(24deg); }
+        }
+        @keyframes heartbeatGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.6); }
+            50% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(251, 113, 133, 0); }
+        }
+        @keyframes dotBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        .mascot-float { animation: floatGentle 3.5s ease-in-out infinite; }
+        .mascot-blink { transform-origin: center; animation: blinkEyes 4s infinite; }
+        .atom-orbit { transform-origin: center; animation: atomOrbit 10s linear infinite; }
+        .shake-error { animation: shakeWrong 0.38s ease-in-out; }
+        .msg-pop { animation: popIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .heartbeat-pulse { animation: heartbeatGlow 2s infinite; }
+        .dot-1 { animation: dotBounce 1.2s infinite 0s; }
+        .dot-2 { animation: dotBounce 1.2s infinite 0.2s; }
+        .dot-3 { animation: dotBounce 1.2s infinite 0.4s; }
+
+        .floating-heart {
+            position: fixed;
+            bottom: 65px;
+            pointer-events: none;
+            z-index: 70;
+            animation: riseHeart 2.6s ease-out forwards;
+        }
+
+        .bubble-out {
+            background-color: var(--bg-outgoing);
+            color: #143624;
+            border-radius: 16px 4px 16px 16px;
+            box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.12);
+        }
+        .theme-midnight .bubble-out {
+            color: #ecfdf5;
+        }
+        .bubble-in {
+            background-color: var(--bg-incoming);
+            color: var(--text-primary);
+            border-radius: 4px 16px 16px 16px;
+            box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.09);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .safe-bottom {
+            padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile-First App Shell -->
+    <div id="appShell" class="w-full h-full sm:w-[430px] sm:h-[94dvh] sm:max-h-[880px] sm:rounded-[34px] sm:shadow-2xl sm:border sm:border-pink-300/40 overflow-hidden flex flex-col relative" style="background-color: var(--bg-app);">
+
+        <!-- ==================== 1. DEDICATED NAME + PASSWORD LOGIN SCREEN ==================== -->
+        <div id="loginScreen" class="flex-1 flex flex-col justify-between p-4 sm:p-5 overflow-y-auto relative z-20" style="background: linear-gradient(165deg, #fff1f5 0%, #ffe4e6 48%, #fce7f3 100%); color: #3b0722;">
+            
+            <!-- Top Sync & Room Pill -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1.5 bg-white/80 backdrop-blur border border-rose-200 px-3 py-1 rounded-full shadow-sm">
+                    <span id="loginSyncDot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="loginSyncStatus" class="text-[11px] font-bold text-rose-800">Live Sync Ready 🟢</span>
+                </div>
+                <button onclick="openModal('roomModal')" class="text-[11px] bg-rose-600/10 hover:bg-rose-600/20 border border-rose-300 px-2.5 py-1 rounded-full font-bold text-rose-800 flex items-center gap-1 transition">
+                    <span>🔑</span>
+                    <span id="loginRoomBadge">DAIMOND-SUBHASHREE-143</span>
+                </button>
+            </div>
+
+            <!-- Prof. Chashma (Beard & Glasses Science Teacher Mascot) -->
+            <div class="flex flex-col items-center text-center my-1">
+                <div onclick="triggerMascotFormula()" class="relative w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center mascot-float cursor-pointer">
+                    <div class="absolute inset-3 rounded-full bg-rose-400/25 blur-xl"></div>
+                    <svg viewBox="0 0 210 210" class="w-full h-full drop-shadow-lg relative z-10">
+                        <!-- Orbiting Science Atoms & Hearts -->
+                        <g class="atom-orbit" opacity="0.6">
+                            <ellipse cx="105" cy="105" rx="90" ry="27" fill="none" stroke="#e11d48" stroke-width="2" transform="rotate(26 105 105)"/>
+                            <ellipse cx="105" cy="105" rx="90" ry="27" fill="none" stroke="#9333ea" stroke-width="2" transform="rotate(-26 105 105)"/>
+                            <circle cx="184" cy="146" r="4.5" fill="#e11d48"/>
+                            <circle cx="26" cy="64" r="4.5" fill="#f59e0b"/>
+                        </g>
+
+                        <!-- White Science Teacher Lab Coat -->
+                        <path d="M44 192 C44 152, 70 142, 105 142 C140 142, 166 152, 166 192 Z" fill="#ffffff" stroke="#fbcfe8" stroke-width="2"/>
+                        <!-- Rose Inner Shirt & Tie -->
+                        <path d="M80 144 L105 182 L130 144 Z" fill="#be185d"/>
+                        <polygon points="96,150 114,150 105,159" fill="#fbbf24"/>
+                        <!-- Lab Coat Lapels -->
+                        <path d="M78 144 L96 186 L68 178 Z" fill="#fce7f3"/>
+                        <path d="M132 144 L114 186 L142 178 Z" fill="#fce7f3"/>
+
+                        <!-- Glowing Heart Erlenmeyer Flask in Hand -->
+                        <g transform="translate(132, 134)">
+                            <path d="M14 4 L22 4 L22 14 L32 34 C34 38, 31 42, 26 42 L10 42 C5 42, 2 38, 4 34 L14 14 Z" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.2"/>
+                            <path d="M7 29 L29 29 L31 35 C32 38, 30 40, 26 40 L10 40 C6 40, 4 38, 5 35 Z" fill="#f43f5e"/>
+                            <path d="M21 19 C21 17 18.5 16 17.5 18 C16.5 16 14 17 14 19 C14 21.5 17.5 24 17.5 24 C17.5 24 21 21.5 21 19 Z" fill="#e11d48"/>
+                        </g>
+
+                        <!-- Neck & Ears -->
+                        <rect x="93" y="124" width="24" height="24" rx="10" fill="#f1c29b"/>
+                        <circle cx="60" cy="96" r="11" fill="#eab38a"/>
+                        <circle cx="150" cy="96" r="11" fill="#eab38a"/>
+
+                        <!-- Head -->
+                        <rect x="62" y="46" width="86" height="90" rx="42" fill="#f5cba7"/>
+
+                        <!-- Cute Fluffy Hair -->
+                        <path d="M58 80 C50 55, 68 28, 105 30 C142 28, 160 55, 152 80 C150 60, 134 48, 105 48 C76 48, 60 60, 58 80 Z" fill="#1e293b"/>
+                        <path d="M76 34 Q90 20 106 32 Q122 20 134 35" fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+
+                        <!-- Rosy Cheeks -->
+                        <ellipse cx="76" cy="106" rx="7.5" ry="4.5" fill="#fb7185" opacity="0.55"/>
+                        <ellipse cx="134" cy="106" rx="7.5" ry="4.5" fill="#fb7185" opacity="0.55"/>
+
+                        <!-- Full Beard ("Beard with Chashma") -->
+                        <path d="M62 98 C62 136, 80 152, 105 152 C130 152, 148 136, 148 98 C142 112, 130 116, 105 116 C80 116, 68 112, 62 98 Z" fill="#1e293b"/>
+                        <path d="M80 116 Q105 106 130 116 Q120 125 105 120 Q90 125 80 116 Z" fill="#0f172a"/>
+                        <path d="M93 125 Q105 137 117 125 Z" fill="#fb7185"/>
+
+                        <!-- Round Golden Chashma (Glasses) -->
+                        <line x1="97" y1="90" x2="113" y2="90" stroke="#d97706" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="62" y1="88" x2="69" y2="90" stroke="#d97706" stroke-width="3"/>
+                        <line x1="141" y1="90" x2="148" y2="88" stroke="#d97706" stroke-width="3"/>
+                        <circle cx="83.5" cy="90" r="14.5" fill="#ffffff" fill-opacity="0.35" stroke="#d97706" stroke-width="3.5"/>
+                        <circle cx="126.5" cy="90" r="14.5" fill="#ffffff" fill-opacity="0.35" stroke="#d97706" stroke-width="3.5"/>
+                        <line x1="75" y1="82" x2="81" y2="88" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <line x1="118" y1="82" x2="124" y2="88" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+
+                        <!-- Blinking Friendly Eyes -->
+                        <g class="mascot-blink">
+                            <circle cx="83.5" cy="90" r="4.2" fill="#0f172a"/>
+                            <circle cx="85" cy="88.5" r="1.4" fill="#ffffff"/>
+                            <circle cx="126.5" cy="90" r="4.2" fill="#0f172a"/>
+                            <circle cx="128" cy="88.5" r="1.4" fill="#ffffff"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Speech Bubble -->
+                <div onclick="triggerMascotFormula()" class="cursor-pointer bg-white/90 border border-rose-200 rounded-2xl px-3.5 py-2 max-w-[340px] shadow-sm transition hover:scale-[1.01]">
+                    <p id="mascotSpeechText" class="text-xs text-rose-900 font-semibold leading-snug">
+                        "Namaste! Main hoon Prof. Chashma 🧪💖 — Daimond + Subhashree = 100% Pure Exothermic Love Reaction!"
+                    </p>
+                </div>
+
+                <h1 class="font-cute text-xl sm:text-2xl font-bold mt-2 text-rose-900">
+                    Daimond & Subhashree 💖
+                </h1>
+                <p id="loginTogetherSubtitle" class="text-[11px] font-semibold text-rose-600">
+                    Private 2-User Space • Science & Dosti Lab 🔬
+                </p>
+            </div>
+
+            <!-- Dedicated 2-User Authorization Card -->
+            <div id="loginCard" class="bg-white/95 backdrop-blur-md border border-rose-200/90 rounded-3xl p-4 shadow-xl space-y-3 my-1">
+                <div class="flex items-center justify-between">
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-rose-700">1. Apna Account Chuno</span>
+                    <span class="text-[10px] font-semibold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-full">Default Pass: 143</span>
+                </div>
+
+                <!-- Quick Select User Cards (Only Daimond & Subhashree) -->
+                <div class="grid grid-cols-2 gap-2.5">
+                    <!-- User 1: Daimond -->
+                    <button type="button" id="selectCardDaimond" onclick="selectLoginAccount('daimond')" class="p-2.5 rounded-2xl border-2 border-rose-500 bg-rose-50/90 text-left transition flex items-center gap-2.5 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center text-xl shrink-0 shadow">
+                            😎
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-bold text-sm text-rose-950 truncate">Daimond</p>
+                            <p class="text-[10px] font-semibold text-rose-600 truncate">Bestie & Soulmate 💛</p>
+                        </div>
+                    </button>
+
+                    <!-- User 2: Subhashree (Science Teacher) -->
+                    <button type="button" id="selectCardSubhashree" onclick="selectLoginAccount('subhashree')" class="p-2.5 rounded-2xl border-2 border-rose-200 bg-white hover:bg-rose-50/50 text-left transition flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-fuchsia-500 to-rose-500 text-white flex items-center justify-center text-xl shrink-0 shadow">
+                            👩🏻‍🏫
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-bold text-sm text-rose-950 truncate">Subhashree</p>
+                            <p class="text-[10px] font-semibold text-fuchsia-700 truncate">Science Teacher 🔬</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Name & Password Form -->
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-2.5 pt-1">
+                    <div>
+                        <label class="text-[11px] font-bold text-rose-800 block mb-1">Username (Daimond ya Subhashree)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm">👤</span>
+                            <input id="loginUsernameInput" type="text" required autocomplete="off" value="Daimond" placeholder="Enter Daimond or Subhashree" class="w-full bg-rose-50/70 border border-rose-200 focus:border-rose-500 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold text-rose-950 outline-none transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[11px] font-bold text-rose-800 block mb-1">Secret Password</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm">🔒</span>
+                            <input id="loginPasswordInput" type="password" required placeholder="Enter your password" class="w-full bg-rose-50/70 border border-rose-200 focus:border-rose-500 rounded-xl pl-9 pr-10 py-2.5 text-sm font-semibold text-rose-950 outline-none transition">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-rose-600 hover:text-rose-800">
+                                👁️
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-0.5">
+                        <label class="flex items-center gap-1.5 text-xs font-semibold text-rose-800 cursor-pointer">
+                            <input id="rememberLoginCheck" type="checkbox" checked class="accent-rose-600 w-3.5 h-3.5 rounded">
+                            <span>Remember Login</span>
+                        </label>
+                        <p id="loginErrorText" class="hidden text-xs font-bold text-red-600">❌ Wrong Name or Password!</p>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-rose-500/30 active:scale-[0.98] transition">
+                        Unlock Private Chat 💖
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer Room Sync Button -->
+            <div class="pt-1 flex items-center justify-center">
+                <button onclick="openModal('roomModal')" class="text-xs font-bold text-rose-700 hover:text-rose-950 flex items-center gap-1.5 bg-white/70 px-4 py-2 rounded-full border border-rose-200 shadow-sm">
+                    <span>📲</span>
+                    <span>Connect 2nd Mobile / Share Link</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== 2. WHATSAPP-STYLE PRIVATE CHAT SCREEN ==================== -->
+        <div id="chatScreen" class="hidden flex-1 flex flex-col h-full overflow-hidden relative">
+
+            <!-- Romantic WhatsApp Top Header -->
+            <header class="px-3 py-2.5 flex items-center justify-between text-white z-20 shadow-md" style="background-color: var(--bg-header);">
+                <div class="flex items-center gap-2 min-w-0">
+                    <button onclick="logoutUser()" title="Logout" class="p-1.5 rounded-full hover:bg-white/15 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+
+                    <!-- Partner Avatar + Prof. Chashma Mini Badge -->
+                    <div class="relative flex items-center cursor-pointer" onclick="cycleChatBannerFormula()">
+                        <div id="partnerAvatarHeader" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl border-2 border-white/40 shadow">
+                            👩🏻‍🏫
+                        </div>
+                        <div class="w-5 h-5 -ml-2 mt-5 rounded-full bg-amber-100 border border-amber-500 flex items-center justify-center text-[11px] shadow">
+                            🧔🏻‍♂️
+                        </div>
+                        <span id="liveSyncDot" class="absolute top-0 right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-rose-800"></span>
+                    </div>
+
+                    <!-- Partner Name, Science Teacher Badge & Live Mood -->
+                    <div class="min-w-0 ml-1 cursor-pointer" onclick="openModal('moodModal')">
+                        <div class="flex items-center gap-1.5">
+                            <h2 id="partnerNameHeader" class="font-bold text-[15px] truncate">Subhashree</h2>
+                            <span id="partnerRoleBadge" class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-semibold shrink-0">Science Teacher 🔬</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-[11px] text-pink-100 truncate">
+                            <span id="partnerMoodChip" class="font-semibold">In Class 🔬</span>
+                            <span>•</span>
+                            <span id="liveSyncLabel" class="text-emerald-200 font-medium">Live Sync 🟢</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Controls: Heartbeat Pulse, Love Drawer & Menu -->
+                <div class="flex items-center gap-1">
+                    <button onclick="sendHeartbeatPulse()" class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-base heartbeat-pulse transition" title="Send Live Heartbeat Vibration">
+                        💓
+                    </button>
+                    <button onclick="toggleLoveDrawer()" class="p-2 rounded-full hover:bg-white/15 transition" title="Love Jar, Together Days & Mood">
+                        <span class="text-lg">🏺</span>
+                    </button>
+                    <button onclick="toggleHeaderMenu()" class="p-1.5 rounded-full hover:bg-white/15 transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="headerMenu" class="hidden absolute right-3 top-14 w-60 rounded-2xl shadow-2xl border border-rose-200/30 py-1.5 z-50 text-sm bg-rose-950 text-pink-50">
+                    <button onclick="openModal('settingsModal'); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-2.5">
+                        <span>🔐</span> <span>Change Passwords & Settings</span>
+                    </button>
+                    <button onclick="openModal('moodModal'); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-2.5">
+                        <span>🥺</span> <span>Set My Live Mood</span>
+                    </button>
+                    <button onclick="toggleMusicBox(); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-2.5">
+                        <span>🎵</span> <span id="musicMenuLabel">Music Box Lullaby: OFF</span>
+                    </button>
+                    <button onclick="toggleTheme(); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-2.5">
+                        <span>🌙</span> <span id="themeMenuLabel">Switch to Midnight Mode</span>
+                    </button>
+                    <button onclick="openModal('roomModal'); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-2.5">
+                        <span>🔑</span> <span>Room Code & Share Link</span>
+                    </button>
+                    <div class="border-t border-white/10 my-1"></div>
+                    <button onclick="clearChatHistory(); toggleHeaderMenu();" class="w-full px-4 py-2.5 text-left hover:bg-red-500/20 text-rose-300 flex items-center gap-2.5">
+                        <span>🗑️</span> <span>Clear Chat History</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Collapsible Couple Dashboard (Together Counter, Love Notes Jar, My Mood) -->
+            <div id="loveDrawer" class="hidden px-3 py-2.5 bg-rose-900/95 text-white border-b border-pink-400/25 z-10">
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div onclick="openModal('settingsModal')" class="cursor-pointer p-2 rounded-2xl bg-white/10 hover:bg-white/15 transition">
+                        <span class="text-base block">🗓️</span>
+                        <span id="togetherDaysBadge" class="font-cute font-bold text-sm text-amber-200 block">365 Days</span>
+                        <span class="text-[10px] text-pink-200">Together</span>
+                    </div>
+                    <div onclick="openModal('loveJarModal')" class="cursor-pointer p-2 rounded-2xl bg-white/10 hover:bg-white/15 transition">
+                        <span class="text-base block">🏺</span>
+                        <span id="jarCountBadge" class="font-cute font-bold text-sm text-rose-200 block">5 Chits</span>
+                        <span class="text-[10px] text-pink-200">Love Notes Jar</span>
+                    </div>
+                    <div onclick="openModal('moodModal')" class="cursor-pointer p-2 rounded-2xl bg-white/10 hover:bg-white/15 transition">
+                        <span id="myMoodIcon" class="text-base block">💕</span>
+                        <span id="myMoodLabel" class="font-cute font-bold text-sm text-emerald-200 block truncate">Missing You</span>
+                        <span class="text-[10px] text-pink-200">My Mood</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prof. Chashma Science + Love Formula Strip -->
+            <div class="px-3 py-1.5 bg-rose-100/95 border-b border-rose-200 flex items-center justify-between gap-2 z-10 text-rose-950">
+                <div onclick="cycleChatBannerFormula()" class="flex items-center gap-1.5 min-w-0 cursor-pointer">
+                    <span class="text-sm shrink-0">🧔🏻‍♂️</span>
+                    <p id="chatBannerFormula" class="text-[11px] font-semibold truncate">
+                        Prof. Chashma: "Subhashree Ma'am ke samne saare physics laws fail ho jaate hain! 👓✨"
+                    </p>
+                </div>
+                <button onclick="sendHugBurst()" class="shrink-0 bg-rose-600 hover:bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow active:scale-90 transition">
+                    🤗 Hugs
+                </button>
+            </div>
+
+            <!-- Main Chat Messages Container -->
+            <main id="messagesList" class="flex-1 overflow-y-auto px-3 py-3 space-y-2.5 chat-wallpaper z-10">
+                <!-- Messages injected here -->
+            </main>
+
+            <!-- Partner Typing Indicator -->
+            <div id="typingIndicatorBar" class="hidden px-4 py-1 z-10 flex items-center gap-2" style="background-color: var(--bg-app);">
+                <div class="px-3 py-1.5 rounded-2xl bg-white border border-rose-200 shadow-sm flex items-center gap-2">
+                    <span id="typingPartnerName" class="text-xs font-bold text-rose-600">Subhashree is typing</span>
+                    <div class="flex gap-1 pt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dot-1"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dot-2"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 dot-3"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Science & Love Sticker Chips -->
+            <div class="px-2.5 py-1.5 flex items-center gap-1.5 overflow-x-auto z-10 border-t border-rose-200/50" style="background-color: var(--bg-app);">
+                <button onclick="sendScienceSticker('🥺', 'Miss You Ma\'am 🥺', 'Class kab khatam hogi?')" class="shrink-0 text-xs px-2.5 py-1 rounded-full bg-rose-500/15 hover:bg-rose-500/25 text-rose-700 font-semibold border border-rose-300/60 transition">
+                    Miss You Ma'am 🥺
+                </button>
+                <button onclick="sendScienceSticker('🧪', 'Lab Me Aao 🧪', 'Special chemistry experiment hai!')" class="shrink-0 text-xs px-2.5 py-1 rounded-full bg-purple-500/15 hover:bg-purple-500/25 text-purple-800 font-semibold border border-purple-300/60 transition">
+                    Lab Me Aao 🧪
+                </button>
+                <button onclick="sendScienceSticker('☕', 'Chai Pe Chalein? ☕', 'Ek cup chai aur tumhari baatein!')" class="shrink-0 text-xs px-2.5 py-1 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 font-semibold border border-amber-300/60 transition">
+                    Chai Pe Chalein? ☕
+                </button>
+                <button onclick="sendScienceSticker('💯', '100/100 Marks 💯', 'Duniya ki best Science Teacher!')" class="shrink-0 text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 font-semibold border border-emerald-300/60 transition">
+                    100/100 Marks 💯
+                </button>
+                <button onclick="sendScienceSticker('❤️', 'Jaan Ho Tum ❤️', 'Always & Forever!')" class="shrink-0 text-xs px-2.5 py-1 rounded-full bg-pink-500/15 hover:bg-pink-500/25 text-pink-800 font-semibold border border-pink-300/60 transition">
+                    Jaan Ho Tum ❤️
+                </button>
+            </div>
+
+            <!-- Quoted Reply Preview Bar -->
+            <div id="replyBar" class="hidden px-3 py-2 border-t border-rose-200 bg-rose-50 flex items-center justify-between gap-2 z-20">
+                <div class="border-l-4 border-rose-600 pl-2.5 min-w-0">
+                    <p id="replySenderTitle" class="text-xs font-bold text-rose-700">Replying to Subhashree</p>
+                    <p id="replySnippetText" class="text-xs text-rose-900/75 truncate">Message...</p>
+                </div>
+                <button onclick="cancelReply()" class="p-1 rounded-full hover:bg-rose-200/60 text-rose-800 text-xs font-bold">✕</button>
+            </div>
+
+            <!-- Full Sticker & Doodle Tray -->
+            <div id="stickerTray" class="hidden border-t border-rose-200 bg-white p-3 z-20 text-rose-950">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-rose-800">🧪 Science & Love Stickers</span>
+                    <div class="flex gap-2">
+                        <button onclick="openDoodlePad()" class="text-xs bg-rose-100 text-rose-800 border border-rose-300 px-2.5 py-1 rounded-lg font-bold">
+                            🎨 Draw Doodle
+                        </button>
+                        <button onclick="toggleStickerTray()" class="text-xs px-2 py-1 rounded-lg bg-gray-100">✕</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="sendScienceSticker('🥺', 'Miss You Ma\'am 🥺', 'Jaldi free ho kar baat karo!')" class="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">🥺</span>
+                        <span class="text-[11px] font-bold mt-0.5">Miss You Ma'am</span>
+                    </button>
+                    <button onclick="sendScienceSticker('🧪', 'Lab Me Aao 🧪', 'Daimond + Subhashree = ∞')" class="p-2 rounded-xl bg-purple-50 hover:bg-purple-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">🧪</span>
+                        <span class="text-[11px] font-bold mt-0.5">Lab Me Aao</span>
+                    </button>
+                    <button onclick="sendScienceSticker('☕', 'Chai Pe Chalein? ☕', 'Bestie & Love Chai Date!')" class="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">☕</span>
+                        <span class="text-[11px] font-bold mt-0.5">Chai Pe Chalein?</span>
+                    </button>
+                    <button onclick="sendScienceSticker('💯', '100/100 Marks 💯', 'Cutest Science Teacher Award!')" class="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">💯</span>
+                        <span class="text-[11px] font-bold mt-0.5">100/100 Marks</span>
+                    </button>
+                    <button onclick="sendScienceSticker('❤️', 'Jaan Ho Tum ❤️', 'Dil ki har dhadkan mein tum!')" class="p-2 rounded-xl bg-pink-50 hover:bg-pink-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">❤️</span>
+                        <span class="text-[11px] font-bold mt-0.5">Jaan Ho Tum</span>
+                    </button>
+                    <button onclick="sendScienceSticker('🤗', 'Hugs 🤗', 'Sending warmest tight hug!')" class="p-2 rounded-xl bg-orange-50 hover:bg-orange-100 flex flex-col items-center text-center transition">
+                        <span class="text-2xl">🤗</span>
+                        <span class="text-[11px] font-bold mt-0.5">Hugs 🤗</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- WhatsApp-Style Bottom Input Bar -->
+            <footer class="px-2 pt-1.5 safe-bottom flex items-end gap-1.5 z-20" style="background-color: var(--bg-app);">
+                <div class="flex-1 flex items-center rounded-3xl px-2.5 py-1.5 shadow-sm border border-rose-200/80" style="background-color: var(--bg-input);">
+                    <button onclick="toggleStickerTray()" class="p-1.5 text-xl hover:scale-110 transition shrink-0" title="Stickers">
+                        🥰
+                    </button>
+
+                    <textarea id="chatInput" rows="1" placeholder="Message likho..." class="w-full bg-transparent border-none outline-none resize-none px-2 py-1 text-sm max-h-24 leading-snug" style="color: var(--text-primary);"></textarea>
+
+                    <button onclick="openDoodlePad()" class="p-1.5 text-rose-500 hover:text-rose-700 transition shrink-0" title="Draw Doodle">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                        </svg>
+                    </button>
+
+                    <label class="p-1.5 text-rose-500 hover:text-rose-700 transition cursor-pointer shrink-0" title="Share Photo">
+                        <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </label>
+                </div>
+
+                <!-- Dynamic Voice Mic / Send Button -->
+                <button id="primaryActionBtn" onclick="handlePrimaryBtn()" class="w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center shadow-lg active:scale-90 transition shrink-0">
+                    <svg id="micIconSvg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+                    </svg>
+                    <svg id="sendIconSvg" class="w-5 h-5 hidden translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </footer>
+
+            <!-- Voice Note Recording Bar -->
+            <div id="voiceRecordBar" class="hidden absolute bottom-2 left-2 right-2 rounded-3xl bg-rose-600 text-white px-4 py-2.5 flex items-center justify-between z-30 shadow-2xl">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-3 h-3 rounded-full bg-white animate-ping"></span>
+                    <span id="recordTimerLabel" class="text-sm font-bold">0:00</span>
+                    <span class="text-xs opacity-90">Recording Voice Note...</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="cancelVoiceRecord()" class="px-3 py-1 rounded-full bg-black/25 text-xs font-semibold">Cancel</button>
+                    <button onclick="finishVoiceRecord()" class="px-3.5 py-1 rounded-full bg-white text-rose-600 text-xs font-bold shadow">Send ♥</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 3. MODALS & OVERLAYS ==================== -->
+
+        <!-- Full-Screen Photo Lightbox -->
+        <div id="photoLightbox" onclick="closeModal('photoLightbox')" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+            <img id="lightboxImg" src="" alt="Full View" class="max-w-full max-h-[85dvh] rounded-2xl shadow-2xl">
+        </div>
+
+        <!-- Settings Modal: Change Passwords, Together Date & Firebase -->
+        <div id="settingsModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div class="w-full max-w-sm rounded-3xl p-5 bg-white text-rose-950 border border-rose-200 shadow-2xl my-auto">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-cute text-lg font-bold text-rose-800">🔐 Passwords & Couple Settings</h3>
+                    <button onclick="closeModal('settingsModal')" class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center font-bold">✕</button>
+                </div>
+
+                <div class="space-y-3 text-left">
+                    <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200">
+                        <label class="text-xs font-bold text-rose-800 block mb-1">😎 Daimond's Password</label>
+                        <input id="setPassDaimond" type="text" maxlength="24" placeholder="Enter password" class="w-full bg-white border border-rose-200 rounded-xl px-3 py-1.5 text-sm font-semibold outline-none">
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-fuchsia-50 border border-fuchsia-200">
+                        <label class="text-xs font-bold text-fuchsia-900 block mb-1">👩🏻‍🏫 Subhashree's Password (Science Teacher)</label>
+                        <input id="setPassSubhashree" type="text" maxlength="24" placeholder="Enter password" class="w-full bg-white border border-fuchsia-200 rounded-xl px-3 py-1.5 text-sm font-semibold outline-none">
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200">
+                        <label class="text-xs font-bold text-amber-900 block mb-1">🗓️ Special Start Date (Together Counter)</label>
+                        <input id="setStartDate" type="date" class="w-full bg-white border border-amber-200 rounded-xl px-3 py-1.5 text-xs font-semibold outline-none">
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+                        <label class="text-xs font-bold text-slate-800 block mb-1">⚡ Optional Firebase Realtime DB URL</label>
+                        <input id="setFirebaseUrl" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs outline-none">
+                    </div>
+                </div>
+
+                <button onclick="saveAllSettings()" class="w-full mt-4 py-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg">
+                    Save & Sync Settings 💖
+                </button>
+            </div>
+        </div>
+
+        <!-- Secret Room Code & Share Link Modal -->
+        <div id="roomModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="w-full max-w-sm rounded-3xl p-5 bg-white text-rose-950 border border-rose-200 shadow-2xl">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-cute text-lg font-bold text-rose-800">🔑 Connect Both Phones</h3>
+                    <button onclick="closeModal('roomModal')" class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center font-bold">✕</button>
+                </div>
+                <p class="text-xs text-rose-800/80 leading-relaxed mb-3">
+                    Dono mobiles par <b>same Secret Room Code</b> rakhein taaki Daimond aur Subhashree ke messages aur heartbeats live sync hon!
+                </p>
+                <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 mb-3">
+                    <label class="text-[11px] font-bold text-rose-700 block mb-1">Secret Room Code:</label>
+                    <div class="flex gap-2">
+                        <input id="roomCodeInput" type="text" maxlength="28" class="flex-1 bg-white border border-rose-200 rounded-xl px-3 py-2 text-xs font-bold uppercase tracking-wider outline-none">
+                        <button onclick="applyNewRoomCode()" class="px-3.5 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs">Join</button>
+                    </div>
+                </div>
+                <button onclick="copyShareInvite()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 text-white font-bold text-sm shadow-lg active:scale-95 transition">
+                    📋 Copy Invite Link for Subhashree
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Mood Modal -->
+        <div id="moodModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="w-full max-w-xs rounded-3xl p-5 bg-white text-rose-950 border border-rose-200 shadow-2xl text-center">
+                <h3 class="font-cute text-lg font-bold text-rose-800 mb-3">Apna Live Mood Chuno 💕</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="updateMyMood('🥺', 'Missing You 🥺')" class="p-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-xs font-bold">🥺 Missing You</button>
+                    <button onclick="updateMyMood('🔬', 'In Class 🔬')" class="p-2.5 rounded-2xl bg-purple-50 hover:bg-purple-100 text-xs font-bold">🔬 In Class</button>
+                    <button onclick="updateMyMood('😊', 'Happy 😊')" class="p-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-xs font-bold">😊 Happy</button>
+                    <button onclick="updateMyMood('💭', 'Thinking of You 💭')" class="p-2.5 rounded-2xl bg-pink-50 hover:bg-pink-100 text-xs font-bold">💭 Thinking of You</button>
+                    <button onclick="updateMyMood('😴', 'Tired 😴')" class="p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-xs font-bold">😴 Tired</button>
+                    <button onclick="updateMyMood('🤗', 'Need Hug 🤗')" class="p-2.5 rounded-2xl bg-orange-50 hover:bg-orange-100 text-xs font-bold">🤗 Need Hug</button>
+                </div>
+                <button onclick="closeModal('moodModal')" class="w-full mt-4 py-2 rounded-xl bg-rose-100 text-xs font-bold">Close</button>
+            </div>
+        </div>
+
+        <!-- Magic Love Notes Jar Modal -->
+        <div id="loveJarModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="w-full max-w-sm rounded-3xl p-5 bg-white text-rose-950 border border-rose-200 shadow-2xl">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-cute text-lg font-bold text-rose-800">🏺 Magic Love Notes Jar</h3>
+                    <button onclick="closeModal('loveJarModal')" class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center font-bold">✕</button>
+                </div>
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-rose-100 to-amber-50 border border-rose-200 text-center mb-3">
+                    <p id="jarChitDisplay" class="font-cute text-sm text-rose-900">
+                        "Ek pyaari si chit nikalne ke liye neeche button dabayein! ✨"
+                    </p>
+                </div>
+                <button onclick="pullRandomLoveChit()" class="w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-rose-950 font-bold text-xs shadow mb-3">
+                    ✨ Pull a Surprise Chit
+                </button>
+                <div class="flex gap-2">
+                    <input id="newLoveChitInput" type="text" maxlength="100" placeholder="Add new love note / promise..." class="flex-1 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2 text-xs font-semibold outline-none">
+                    <button onclick="addLoveChit()" class="px-3.5 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Romantic Doodle Pad Modal -->
+        <div id="doodleModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="w-full max-w-sm rounded-3xl p-4 bg-white text-rose-950 border border-rose-200 shadow-2xl">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-cute text-base font-bold text-rose-800">🎨 Draw for Your Bestie</h3>
+                    <button onclick="closeModal('doodleModal')" class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center font-bold">✕</button>
+                </div>
+                <canvas id="doodleCanvas" width="320" height="230" class="w-full h-52 bg-rose-50/40 border border-rose-200 rounded-2xl touch-none cursor-crosshair"></canvas>
+                <div class="flex items-center justify-between mt-3">
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="setBrushColor('#e11d48')" class="w-6 h-6 rounded-full bg-rose-600 ring-2 ring-rose-300"></button>
+                        <button onclick="setBrushColor('#9333ea')" class="w-6 h-6 rounded-full bg-purple-600 ring-2 ring-purple-300"></button>
+                        <button onclick="setBrushColor('#d97706')" class="w-6 h-6 rounded-full bg-amber-600 ring-2 ring-amber-300"></button>
+                        <button onclick="setBrushColor('#059669')" class="w-6 h-6 rounded-full bg-emerald-600 ring-2 ring-emerald-300"></button>
+                        <button onclick="setBrushSize(3)" class="px-2 py-0.5 rounded bg-rose-100 text-[10px] font-bold">Thin</button>
+                        <button onclick="setBrushSize(7)" class="px-2 py-0.5 rounded bg-rose-100 text-[10px] font-bold">Bold</button>
+                    </div>
+                    <div class="flex gap-1.5">
+                        <button onclick="clearDoodlePad()" class="px-2.5 py-1.5 rounded-xl bg-gray-100 text-xs font-bold">Clear</button>
+                        <button onclick="sendDoodleDrawing()" class="px-3.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold">Send ♥</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Pill -->
+        <div id="toastPill" class="hidden fixed top-5 left-1/2 -translate-x-1/2 bg-rose-950 text-white border border-rose-400/50 px-4 py-2 rounded-full text-xs font-semibold shadow-2xl z-50 whitespace-nowrap">
+            Notification
+        </div>
+
+    </div>
+
+    <script>
+        /* =====================================================================
+           LOVELAB — DAIMOND & SUBHASHREE'S PRIVATE SPACE (REAL-TIME ENGINE)
+           ===================================================================== */
+
+        const SCIENCE_LOVE_FORMULAS = [
+            "Daimond + Subhashree = 100% Pure Exothermic Love Reaction! 🧪💕",
+            "Subhashree Ma'am ke samne saare physics laws fail ho jaate hain! 👓✨",
+            "Prof. Chashma Lab Report: Tum dono ki dosti aur pyaar ka bond diamond se bhi strong hai! 💎❤️",
+            "Chemistry Fact: Jab Subhashree smile karti hain, toh dopamine aur serotonin 1000x badh jaate hain! 😊🔬",
+            "Prof. Chashma Reminder: Science Teacher Ma'am ko time par chai aur khana puchna zaroori hai! ☕💖"
+        ];
+
+        const INITIAL_LOVE_CHITS = [
+            "Coupon: Science Teacher Subhashree Ma'am ke liye 1 Special Chai & Maggi Treat! ☕🍜",
+            "Promise: Chahe kitni bhi classes ya work ho, Daimond & Subhashree hamesha ek dusre ke bestie rahenge! 🤞❤️",
+            "100/100 Marks in Cutest Smile & Caring Heart — Awarded to Subhashree! 💯💖",
+            "Coupon: 1 Unlimited Tight Hug whenever we meet next! 🤗✨",
+            "Prof. Chashma Certificate: Best Chemistry in the Universe = Daimond & Subhashree! 🧪🥰"
+        ];
+
+        const urlQuery = new URLSearchParams(window.location.search);
+        const storedApp = JSON.parse(localStorage.getItem('lovelab_ds_v1') || '{}');
+
+        const state = {
+            roomCode: (urlQuery.get('room') || storedApp.roomCode || 'DAIMOND-SUBHASHREE-143').toUpperCase(),
+            firebaseUrl: storedApp.firebaseUrl || '',
+            loggedInUser: storedApp.loggedInUser || null, // 'daimond' | 'subhashree'
+            theme: storedApp.theme || 'light',
+            startDate: storedApp.startDate || '2025-02-14',
+            accounts: storedApp.accounts || {
+                daimond: {
+                    name: 'Daimond',
+                    badge: 'Bestie & Soulmate 💛',
+                    avatar: '😎',
+                    password: '143',
+                    mood: 'Missing You 🥺'
+                },
+                subhashree: {
+                    name: 'Subhashree',
+                    badge: 'Science Teacher 🔬',
+                    avatar: '👩🏻‍🏫',
+                    password: '143',
+                    mood: 'In Class 🔬'
+                }
+            },
+            chits: storedApp.chits || [...INITIAL_LOVE_CHITS],
+            messages: {},
+            replyTo: null,
+            lastHeartbeatId: null
+        };
+
+        let gun = null;
+        let roomNode = null;
+        let fbTimer = null;
+        let typingDebounce = null;
+
+        function saveLocalState() {
+            localStorage.setItem('lovelab_ds_v1', JSON.stringify({
+                roomCode: state.roomCode,
+                firebaseUrl: state.firebaseUrl,
+                loggedInUser: state.loggedInUser,
+                theme: state.theme,
+                startDate: state.startDate,
+                accounts: state.accounts,
+                chits: state.chits
+            }));
+        }
+
+        /* -------------------- REAL-TIME CROSS-PHONE SYNC (GUN.JS + FIREBASE) -------------------- */
+        function setupCloudSync() {
+            const cleanRoom = state.roomCode.replace(/[^A-Z0-9-]/g, '') || 'DAIMOND-SUBHASHREE-143';
+            state.roomCode = cleanRoom;
+            document.getElementById('loginRoomBadge').textContent = cleanRoom;
+            document.getElementById('roomCodeInput').value = cleanRoom;
+
+            const cached = JSON.parse(localStorage.getItem(`lovelab_ds_msgs_${cleanRoom}`) || '{}');
+            state.messages = cached;
+
+            if (Object.keys(state.messages).length === 0) {
+                state.messages['seed_welcome'] = {
+                    id: 'seed_welcome',
+                    sender: 'system',
+                    type: 'text',
+                    text: '🧪 Prof. Chashma: Welcome Daimond & Subhashree Ma\'am! Dono phones par same Room Code se live chatting aur heartbeats share karein 💖',
+                    timestamp: Date.now() - 20000
+                };
+            }
+
+            if (state.firebaseUrl) {
+                startFirebaseSync(cleanRoom);
+            } else {
+                startGunSync(cleanRoom);
+            }
+        }
+
+        function startGunSync(cleanRoom) {
+            try {
+                gun = Gun({
+                    peers: [
+                        'https://gun-manhattan.herokuapp.com/gun',
+                        'https://relay.peer.ooo/gun',
+                        'https://peer.wallie.io/gun'
+                    ]
+                });
+
+                roomNode = gun.get('lovelab_ds_space_' + cleanRoom);
+
+                roomNode.get('meta').on((meta) => {
+                    if (!meta) return;
+                    if (meta.accountsJson) {
+                        try {
+                            const remoteAcc = JSON.parse(meta.accountsJson);
+                            state.accounts.daimond = { ...state.accounts.daimond, ...remoteAcc.daimond };
+                            state.accounts.subhashree = { ...state.accounts.subhashree, ...remoteAcc.subhashree };
+                            saveLocalState();
+                            refreshHeaderAndBadges();
+                        } catch (e) {}
+                    }
+                    if (meta.startDate) {
+                        state.startDate = meta.startDate;
+                        refreshTogetherCounter();
+                    }
+                    if (meta.chitsJson) {
+                        try {
+                            state.chits = JSON.parse(meta.chitsJson);
+                            document.getElementById('jarCountBadge').textContent = `${state.chits.length} Chits`;
+                        } catch (e) {}
+                    }
+                    if (state.loggedInUser) {
+                        const partnerKey = state.loggedInUser === 'daimond' ? 'subhashree' : 'daimond';
+                        const lastTyped = meta[`typing_${partnerKey}`] || 0;
+                        const typingBar = document.getElementById('typingIndicatorBar');
+                        if ((Date.now() - lastTyped) < 4000) {
+                            document.getElementById('typingPartnerName').textContent = `${state.accounts[partnerKey].name} is typing`;
+                            typingBar.classList.remove('hidden');
+                        } else {
+                            typingBar.classList.add('hidden');
+                        }
+                    }
+                    if (meta.hbId && meta.hbId !== state.lastHeartbeatId) {
+                        state.lastHeartbeatId = meta.hbId;
+                        if (state.loggedInUser && meta.hbFrom !== state.loggedInUser && (Date.now() - meta.hbAt) < 9000) {
+                            onIncomingHeartbeat(meta.hbFrom);
+                        }
+                    }
+                });
+
+                roomNode.get('messages').map().on((msg, key) => {
+                    if (!msg || !msg.timestamp) return;
+                    if (msg.deleted) {
+                        delete state.messages[key];
+                    } else {
+                        const parsed = {
+                            ...msg,
+                            id: key,
+                            reactions: msg.reactionsJson ? JSON.parse(msg.reactionsJson) : {},
+                            replyTo: msg.replyToJson ? JSON.parse(msg.replyToJson) : null
+                        };
+                        const isBrandNew = !state.messages[key];
+                        state.messages[key] = parsed;
+                        if (isBrandNew && state.loggedInUser && parsed.sender !== state.loggedInUser && parsed.sender !== 'system') {
+                            playGentleTone(660);
+                            if (parsed.type === 'sticker') launchHearts(10);
+                        }
+                    }
+                    localStorage.setItem(`lovelab_ds_msgs_${cleanRoom}`, JSON.stringify(state.messages));
+                    renderMessages();
+                });
+
+                setSyncIndicator(true, 'Live Sync 🟢');
+            } catch (e) {
+                setSyncIndicator(false, 'Local Mode');
+            }
+        }
+
+        function startFirebaseSync(cleanRoom) {
+            if (fbTimer) clearInterval(fbTimer);
+            const base = state.firebaseUrl.replace(/\/$/, '');
+            const endpoint = `${base}/lovelab_ds/${cleanRoom}.json`;
+
+            const fetchLoop = async () => {
+                try {
+                    const res = await fetch(endpoint);
+                    if (!res.ok) throw new Error();
+                    const data = await res.json();
+                    setSyncIndicator(true, 'Firebase Live 🟢');
+                    if (!data) return;
+                    if (data.meta && data.meta.accounts) {
+                        state.accounts = { ...state.accounts, ...data.meta.accounts };
+                        refreshHeaderAndBadges();
+                    }
+                    if (data.messages) {
+                        Object.keys(data.messages).forEach((k) => {
+                            if (data.messages[k].deleted) delete state.messages[k];
+                            else state.messages[k] = data.messages[k];
+                        });
+                        renderMessages();
+                    }
+                } catch (err) {
+                    setSyncIndicator(false, 'Check Cloud URL');
+                }
+            };
+            fetchLoop();
+            fbTimer = setInterval(fetchLoop, 2200);
+        }
+
+        function setSyncIndicator(ok, text) {
+            const lbl = document.getElementById('liveSyncLabel');
+            const dot = document.getElementById('liveSyncDot');
+            if (lbl) lbl.textContent = text;
+            if (dot) dot.className = `absolute top-0 right-1 w-2.5 h-2.5 rounded-full ${ok ? 'bg-emerald-400' : 'bg-amber-400'} ring-2 ring-rose-800`;
+        }
+
+        function pushMetaCloud(patch) {
+            if (roomNode) roomNode.get('meta').put(patch);
+            if (state.firebaseUrl) {
+                const base = state.firebaseUrl.replace(/\/$/, '');
+                fetch(`${base}/lovelab_ds/${state.roomCode}/meta.json`, {
+                    method: 'PATCH',
+                    body: JSON.stringify(patch)
+                }).catch(() => {});
+            }
+        }
+
+        function pushMessageCloud(msgObj) {
+            state.messages[msgObj.id] = msgObj;
+            localStorage.setItem(`lovelab_ds_msgs_${state.roomCode}`, JSON.stringify(state.messages));
+            renderMessages();
+
+            if (roomNode) {
+                roomNode.get('messages').get(msgObj.id).put({
+                    id: msgObj.id,
+                    sender: msgObj.sender,
+                    type: msgObj.type || 'text',
+                    text: msgObj.text || '',
+                    emoji: msgObj.emoji || '',
+                    title: msgObj.title || '',
+                    subtitle: msgObj.subtitle || '',
+                    imageData: msgObj.imageData || '',
+                    caption: msgObj.caption || '',
+                    audioData: msgObj.audioData || '',
+                    duration: msgObj.duration || '',
+                    timestamp: msgObj.timestamp,
+                    reactionsJson: JSON.stringify(msgObj.reactions || {}),
+                    replyToJson: msgObj.replyTo ? JSON.stringify(msgObj.replyTo) : ''
+                });
+            }
+
+            if (state.firebaseUrl) {
+                const base = state.firebaseUrl.replace(/\/$/, '');
+                fetch(`${base}/lovelab_ds/${state.roomCode}/messages/${msgObj.id}.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(msgObj)
+                }).catch(() => {});
+            }
+        }
+
+        /* -------------------- LOGIN AUTHORIZATION (DAIMOND & SUBHASHREE) -------------------- */
+        window.selectLoginAccount = function(userKey) {
+            const cardD = document.getElementById('selectCardDaimond');
+            const cardS = document.getElementById('selectCardSubhashree');
+            const userInput = document.getElementById('loginUsernameInput');
+            document.getElementById('loginErrorText').classList.add('hidden');
+
+            if (userKey === 'daimond') {
+                cardD.className = 'p-2.5 rounded-2xl border-2 border-rose-500 bg-rose-50/90 text-left transition flex items-center gap-2.5 shadow-sm';
+                cardS.className = 'p-2.5 rounded-2xl border-2 border-rose-200 bg-white hover:bg-rose-50/50 text-left transition flex items-center gap-2.5';
+                userInput.value = 'Daimond';
+            } else {
+                cardS.className = 'p-2.5 rounded-2xl border-2 border-fuchsia-500 bg-fuchsia-50/90 text-left transition flex items-center gap-2.5 shadow-sm';
+                cardD.className = 'p-2.5 rounded-2xl border-2 border-rose-200 bg-white hover:bg-rose-50/50 text-left transition flex items-center gap-2.5';
+                userInput.value = 'Subhashree';
+            }
+            document.getElementById('loginPasswordInput').focus();
+        };
+
+        window.togglePasswordVisibility = function() {
+            const inp = document.getElementById('loginPasswordInput');
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+        };
+
+        window.handleAuthSubmit = function(e) {
+            e.preventDefault();
+            const rawName = document.getElementById('loginUsernameInput').value.trim().toLowerCase();
+            const rawPass = document.getElementById('loginPasswordInput').value.trim();
+            const remember = document.getElementById('rememberLoginCheck').checked;
+            const errEl = document.getElementById('loginErrorText');
+            const card = document.getElementById('loginCard');
+
+            let matchedKey = null;
+            if (rawName === 'daimond' && rawPass === state.accounts.daimond.password) {
+                matchedKey = 'daimond';
+            } else if (rawName === 'subhashree' && rawPass === state.accounts.subhashree.password) {
+                matchedKey = 'subhashree';
+            }
+
+            if (!matchedKey) {
+                errEl.classList.remove('hidden');
+                card.classList.remove('shake-error');
+                void card.offsetWidth;
+                card.classList.add('shake-error');
+                playGentleTone(260);
+                return;
+            }
+
+            errEl.classList.add('hidden');
+            state.loggedInUser = matchedKey;
+            if (remember) {
+                saveLocalState();
+            } else {
+                localStorage.removeItem('lovelab_ds_v1');
+            }
+
+            enterChatRoom(matchedKey);
+        };
+
+        function enterChatRoom(userKey) {
+            refreshHeaderAndBadges();
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('chatScreen').classList.remove('hidden');
+            renderMessages();
+            playGentleTone(620);
+            launchHearts(7);
+            showToast(`Welcome ${state.accounts[userKey].name} 💖`);
+        }
+
+        window.logoutUser = function() {
+            state.loggedInUser = null;
+            saveLocalState();
+            document.getElementById('loginPasswordInput').value = '';
+            document.getElementById('chatScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+        };
+
+        function refreshHeaderAndBadges() {
+            refreshTogetherCounter();
+            document.getElementById('jarCountBadge').textContent = `${state.chits.length} Chits`;
+
+            if (!state.loggedInUser) return;
+            const me = state.accounts[state.loggedInUser];
+            const partnerKey = state.loggedInUser === 'daimond' ? 'subhashree' : 'daimond';
+            const partner = state.accounts[partnerKey];
+
+            document.getElementById('partnerNameHeader').textContent = partner.name;
+            document.getElementById('partnerRoleBadge').textContent = partner.badge;
+            document.getElementById('partnerAvatarHeader').textContent = partner.avatar;
+            document.getElementById('partnerMoodChip').textContent = partner.mood || 'Missing You 🥺';
+
+            document.getElementById('myMoodLabel').textContent = (me.mood || 'Missing You 🥺').replace(/[^\w\s]/g, '').trim();
+            document.getElementById('myMoodIcon').textContent = (me.mood || '🥺').split(' ').pop();
+        }
+
+        function refreshTogetherCounter() {
+            const start = new Date(state.startDate || '2025-02-14');
+            const days = Math.max(1, Math.floor((Date.now() - start.getTime()) / (1000 * 60 * 60 * 24)));
+            document.getElementById('togetherDaysBadge').textContent = `${days} Days`;
+            document.getElementById('loginTogetherSubtitle').textContent = `Together for ${days} Days • Science & Dosti Lab 🔬`;
+        }
+
+        /* -------------------- MESSAGING, REACTIONS, STICKERS, VOICE & DOODLES -------------------- */
+        const chatInput = document.getElementById('chatInput');
+        const micIconSvg = document.getElementById('micIconSvg');
+        const sendIconSvg = document.getElementById('sendIconSvg');
+
+        chatInput.addEventListener('input', () => {
+            chatInput.style.height = 'auto';
+            chatInput.style.height = Math.min(chatInput.scrollHeight, 96) + 'px';
+            const hasText = chatInput.value.trim().length > 0;
+            micIconSvg.classList.toggle('hidden', hasText);
+            sendIconSvg.classList.toggle('hidden', !hasText);
+
+            if (hasText && state.loggedInUser) {
+                clearTimeout(typingDebounce);
+                typingDebounce = setTimeout(() => {
+                    pushMetaCloud({ [`typing_${state.loggedInUser}`]: Date.now() });
+                }, 250);
+            }
+        });
+
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (chatInput.value.trim()) sendTextMessage();
+            }
+        });
+
+        window.handlePrimaryBtn = function() {
+            if (chatInput.value.trim().length > 0) sendTextMessage();
+            else startVoiceRecord();
+        };
+
+        function sendTextMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            micIconSvg.classList.remove('hidden');
+            sendIconSvg.classList.add('hidden');
+            dispatchChatMessage({ type: 'text', text });
+        }
+
+        window.sendScienceSticker = function(emoji, title, subtitle) {
+            document.getElementById('stickerTray').classList.add('hidden');
+            launchHearts(10);
+            dispatchChatMessage({ type: 'sticker', emoji, title, subtitle });
+        };
+
+        window.sendHugBurst = function() {
+            launchHearts(14);
+            dispatchChatMessage({
+                type: 'sticker',
+                emoji: '🤗',
+                title: 'Hugs 🤗',
+                subtitle: 'Prof. Chashma certified warmest tight hug! 💖'
+            });
+        };
+
+        function dispatchChatMessage(payload) {
+            const msgId = `m_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+            const msgObj = {
+                id: msgId,
+                sender: state.loggedInUser || 'daimond',
+                timestamp: Date.now(),
+                reactions: {},
+                ...payload
+            };
+            if (state.replyTo) {
+                msgObj.replyTo = { ...state.replyTo };
+                cancelReply();
+            }
+            playGentleTone(540);
+            pushMessageCloud(msgObj);
+        }
+
+        /* Live Heartbeat Pulse */
+        window.sendHeartbeatPulse = function() {
+            if (navigator.vibrate) navigator.vibrate([90, 50, 140]);
+            launchHearts(12);
+            playGentleTone(740);
+            showToast('💓 Live Heartbeat sent!');
+            pushMetaCloud({
+                hbId: `hb_${Date.now()}`,
+                hbFrom: state.loggedInUser,
+                hbAt: Date.now()
+            });
+        };
+
+        function onIncomingHeartbeat(fromKey) {
+            if (navigator.vibrate) navigator.vibrate([120, 60, 120, 60, 220]);
+            launchHearts(18);
+            playGentleTone(790);
+            const senderName = state.accounts[fromKey]?.name || 'Partner';
+            showToast(`💓 ${senderName} sent a Live Heartbeat!`);
+        }
+
+        /* Photo Gallery Upload & Compression */
+        window.handlePhotoUpload = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 480;
+                    const ratio = Math.min(1, maxSize / Math.max(img.width, img.height));
+                    canvas.width = img.width * ratio;
+                    canvas.height = img.height * ratio;
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    dispatchChatMessage({
+                        type: 'image',
+                        imageData: canvas.toDataURL('image/jpeg', 0.7),
+                        caption: 'Shared Moment 📸'
+                    });
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+            e.target.value = '';
+        };
+
+        /* Voice Note Recorder */
+        let mediaRec = null;
+        let audioChunks = [];
+        let recInterval = null;
+        let recSeconds = 0;
+
+        async function startVoiceRecord() {
+            recSeconds = 0;
+            document.getElementById('recordTimerLabel').textContent = '0:00';
+            document.getElementById('voiceRecordBar').classList.remove('hidden');
+            recInterval = setInterval(() => {
+                recSeconds++;
+                const mins = Math.floor(recSeconds / 60);
+                const secs = String(recSeconds % 60).padStart(2, '0');
+                document.getElementById('recordTimerLabel').textContent = `${mins}:${secs}`;
+            }, 1000);
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRec = new MediaRecorder(stream);
+                audioChunks = [];
+                mediaRec.ondataavailable = (ev) => audioChunks.push(ev.data);
+                mediaRec.start();
+            } catch (err) {
+                mediaRec = null;
+            }
+        }
+
+        window.cancelVoiceRecord = function() {
+            clearInterval(recInterval);
+            document.getElementById('voiceRecordBar').classList.add('hidden');
+            if (mediaRec && mediaRec.state !== 'inactive') {
+                mediaRec.stop();
+                mediaRec.stream.getTracks().forEach(t => t.stop());
+            }
+        };
+
+        window.finishVoiceRecord = function() {
+            clearInterval(recInterval);
+            document.getElementById('voiceRecordBar').classList.add('hidden');
+            const dur = document.getElementById('recordTimerLabel').textContent;
+
+            if (mediaRec && mediaRec.state !== 'inactive') {
+                mediaRec.onstop = () => {
+                    const blob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        dispatchChatMessage({ type: 'voice', duration: dur, audioData: reader.result });
+                    };
+                    reader.readAsDataURL(blob);
+                };
+                mediaRec.stop();
+                mediaRec.stream.getTracks().forEach(t => t.stop());
+            } else {
+                dispatchChatMessage({ type: 'voice', duration: dur || '0:03', audioData: '' });
+            }
+        };
+
+        /* Render Chat Bubbles */
+        function renderMessages() {
+            const list = document.getElementById('messagesList');
+            list.innerHTML = '';
+
+            const ordered = Object.values(state.messages).sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+            ordered.forEach((msg) => {
+                if (msg.sender === 'system') {
+                    const div = document.createElement('div');
+                    div.className = 'flex justify-center my-2 msg-pop relative z-10';
+                    div.innerHTML = `<div class="bg-rose-100/95 border border-rose-200 text-rose-900 text-xs px-3.5 py-1.5 rounded-2xl max-w-[88%] text-center font-medium shadow-sm">${escapeHTML(msg.text)}</div>`;
+                    list.appendChild(div);
+                    return;
+                }
+
+                const isMine = msg.sender === state.loggedInUser;
+                const timeStr = new Date(msg.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                const row = document.createElement('div');
+                row.className = `flex flex-col ${isMine ? 'items-end' : 'items-start'} msg-pop relative z-10`;
+
+                let quoteHtml = '';
+                if (msg.replyTo) {
+                    quoteHtml = `
+                        <div class="mb-1.5 px-2.5 py-1 rounded-lg bg-black/10 border-l-4 border-rose-500 text-[11px]">
+                            <p class="font-bold text-rose-700">${escapeHTML(msg.replyTo.senderName)}</p>
+                            <p class="truncate opacity-80">${escapeHTML(msg.replyTo.text)}</p>
+                        </div>
+                    `;
+                }
+
+                let bodyHtml = '';
+                if (msg.type === 'sticker') {
+                    bodyHtml = `
+                        <div class="flex flex-col items-center text-center py-1 px-2">
+                            <span class="text-5xl mb-1">${msg.emoji}</span>
+                            <span class="font-cute font-bold text-sm text-rose-700">${escapeHTML(msg.title)}</span>
+                            <span class="text-[11px] opacity-80">${escapeHTML(msg.subtitle)}</span>
+                        </div>
+                    `;
+                } else if (msg.type === 'image') {
+                    bodyHtml = `
+                        <div class="space-y-1">
+                            <img src="${msg.imageData}" onclick="openLightbox('${msg.imageData}')" alt="Shared" class="rounded-xl max-h-56 w-auto object-cover cursor-pointer border border-black/10">
+                            ${msg.caption ? `<p class="text-xs opacity-85">${escapeHTML(msg.caption)}</p>` : ''}
+                        </div>
+                    `;
+                } else if (msg.type === 'voice') {
+                    bodyHtml = `
+                        <div class="flex items-center gap-2.5 py-1 pr-2 min-w-[175px]">
+                            <button onclick="playVoiceBubble(this, '${msg.audioData || ''}')" class="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow shrink-0">▶</button>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-0.5 h-4">
+                                    ${[40,85,55,95,65,80,45,75,90,50,60,85].map(h => `<span class="w-1 bg-rose-500/80 rounded-full" style="height:${h}%"></span>`).join('')}
+                                </div>
+                                <span class="text-[10px] opacity-75 block mt-0.5">Voice Note • ${escapeHTML(msg.duration || '0:03')}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    bodyHtml = `<p class="text-[14px] leading-relaxed whitespace-pre-wrap break-words">${escapeHTML(msg.text || '')}</p>`;
+                }
+
+                const activeReacts = msg.reactions ? Object.keys(msg.reactions).filter(e => msg.reactions[e]) : [];
+                const reactBadge = activeReacts.length > 0
+                    ? `<div class="-mt-2 mx-2 px-2 py-0.5 rounded-full bg-white border border-rose-200 text-xs shadow flex gap-1">${activeReacts.join('')}</div>`
+                    : '';
+
+                row.innerHTML = `
+                    <div class="max-w-[82%] ${isMine ? 'bubble-out' : 'bubble-in'} px-3 py-2 relative">
+                        ${quoteHtml}
+                        ${bodyHtml}
+                        <div class="flex items-center justify-end gap-1 mt-1">
+                            <span class="text-[10px] opacity-65">${timeStr}</span>
+                            ${isMine ? `<span class="text-[11px] text-sky-600 font-extrabold">✓✓</span>` : ''}
+                        </div>
+                        <div class="mt-1 pt-1 border-t border-black/10 flex items-center justify-between gap-2 text-xs">
+                            <div class="flex gap-1">
+                                ${['❤️', '😂', '😍', '🧪', '🥺', '🔥'].map(em => `<button onclick="toggleReaction('${msg.id}', '${em}')" class="hover:scale-125 transition">${em}</button>`).join('')}
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="beginReply('${msg.id}')" class="text-[10px] font-bold text-rose-700 hover:underline">Reply</button>
+                                ${isMine ? `<button onclick="deleteSingleMessage('${msg.id}')" class="text-[10px] text-red-600 hover:underline">Delete</button>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    ${reactBadge}
+                `;
+                list.appendChild(row);
+            });
+
+            list.scrollTop = list.scrollHeight;
+        }
+
+        window.openLightbox = function(src) {
+            document.getElementById('lightboxImg').src = src;
+            openModal('photoLightbox');
+        };
+
+        window.playVoiceBubble = function(btn, audioData) {
+            if (audioData) {
+                const audio = new Audio(audioData);
+                btn.textContent = '🔊';
+                audio.play();
+                audio.onended = () => btn.textContent = '▶';
+            } else {
+                btn.textContent = '🔊';
+                playGentleTone(520);
+                setTimeout(() => btn.textContent = '▶', 800);
+            }
+        };
+
+        window.toggleReaction = function(msgId, emoji) {
+            const msg = state.messages[msgId];
+            if (!msg) return;
+            msg.reactions = { ...(msg.reactions || {}), [emoji]: !(msg.reactions && msg.reactions[emoji]) };
+            playGentleTone(700);
+            if (emoji === '❤️' || emoji === '😍') launchHearts(5);
+            pushMessageCloud(msg);
+        };
+
+        window.deleteSingleMessage = function(msgId) {
+            delete state.messages[msgId];
+            localStorage.setItem(`lovelab_ds_msgs_${state.roomCode}`, JSON.stringify(state.messages));
+            renderMessages();
+            if (roomNode) roomNode.get('messages').get(msgId).put({ deleted: true, timestamp: Date.now() });
+            showToast('Message deleted 🗑️');
+        };
+
+        window.beginReply = function(msgId) {
+            const msg = state.messages[msgId];
+            if (!msg) return;
+            const senderName = state.accounts[msg.sender]?.name || 'Partner';
+            const snippet = msg.text || msg.title || msg.caption || 'Voice Note 🎤';
+            state.replyTo = { senderName, text: snippet };
+            document.getElementById('replySenderTitle').textContent = `Replying to ${senderName}`;
+            document.getElementById('replySnippetText').textContent = snippet;
+            document.getElementById('replyBar').classList.remove('hidden');
+            chatInput.focus();
+        };
+
+        window.cancelReply = function() {
+            state.replyTo = null;
+            document.getElementById('replyBar').classList.add('hidden');
+        };
+
+        /* -------------------- DOODLE PAD -------------------- */
+        const doodleCanvas = document.getElementById('doodleCanvas');
+        const doodleCtx = doodleCanvas.getContext('2d');
+        let currentBrushColor = '#e11d48';
+        let isDrawing = false;
+        doodleCtx.lineWidth = 4;
+        doodleCtx.lineCap = 'round';
+
+        window.openDoodlePad = function() {
+            document.getElementById('stickerTray').classList.add('hidden');
+            openModal('doodleModal');
+            clearDoodlePad();
+        };
+        window.setBrushColor = (c) => currentBrushColor = c;
+        window.setBrushSize = (sz) => doodleCtx.lineWidth = sz;
+        window.clearDoodlePad = () => {
+            doodleCtx.fillStyle = '#ffffff';
+            doodleCtx.fillRect(0, 0, doodleCanvas.width, doodleCanvas.height);
+        };
+
+        function getCanvasCoords(e) {
+            const rect = doodleCanvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: (clientX - rect.left) * (doodleCanvas.width / rect.width),
+                y: (clientY - rect.top) * (doodleCanvas.height / rect.height)
+            };
+        }
+
+        doodleCanvas.addEventListener('mousedown', (e) => { isDrawing = true; const p = getCanvasCoords(e); doodleCtx.beginPath(); doodleCtx.moveTo(p.x, p.y); });
+        doodleCanvas.addEventListener('mousemove', (e) => { if (!isDrawing) return; const p = getCanvasCoords(e); doodleCtx.strokeStyle = currentBrushColor; doodleCtx.lineTo(p.x, p.y); doodleCtx.stroke(); });
+        window.addEventListener('mouseup', () => isDrawing = false);
+
+        doodleCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); isDrawing = true; const p = getCanvasCoords(e); doodleCtx.beginPath(); doodleCtx.moveTo(p.x, p.y); }, { passive: false });
+        doodleCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (!isDrawing) return; const p = getCanvasCoords(e); doodleCtx.strokeStyle = currentBrushColor; doodleCtx.lineTo(p.x, p.y); doodleCtx.stroke(); }, { passive: false });
+        doodleCanvas.addEventListener('touchend', () => isDrawing = false);
+
+        window.sendDoodleDrawing = function() {
+            const url = doodleCanvas.toDataURL('image/png');
+            closeModal('doodleModal');
+            dispatchChatMessage({ type: 'image', imageData: url, caption: 'Cute Doodle Sketch 🎨💖' });
+        };
+
+        /* -------------------- MOOD, LOVE JAR, SETTINGS & ROOM SYNC -------------------- */
+        window.updateMyMood = function(emoji, fullMood) {
+            if (!state.loggedInUser) return;
+            state.accounts[state.loggedInUser].mood = fullMood;
+            saveLocalState();
+            refreshHeaderAndBadges();
+            pushMetaCloud({ accountsJson: JSON.stringify(state.accounts) });
+            closeModal('moodModal');
+            showToast(`Mood set: ${fullMood}`);
+        };
+
+        window.pullRandomLoveChit = function() {
+            if (!state.chits.length) return;
+            const chit = state.chits[Math.floor(Math.random() * state.chits.length)];
+            document.getElementById('jarChitDisplay').textContent = `"${chit}"`;
+            launchHearts(8);
+            playGentleTone(660);
+        };
+
+        window.addLoveChit = function() {
+            const inp = document.getElementById('newLoveChitInput');
+            const val = inp.value.trim();
+            if (!val) return;
+            state.chits.push(val);
+            inp.value = '';
+            saveLocalState();
+            document.getElementById('jarCountBadge').textContent = `${state.chits.length} Chits`;
+            pushMetaCloud({ chitsJson: JSON.stringify(state.chits) });
+            showToast('Love Chit added to Jar! 🏺💖');
+        };
+
+        window.saveAllSettings = function() {
+            const passD = document.getElementById('setPassDaimond').value.trim();
+            const passS = document.getElementById('setPassSubhashree').value.trim();
+            const dt = document.getElementById('setStartDate').value;
+            const fb = document.getElementById('setFirebaseUrl').value.trim();
+
+            if (passD) state.accounts.daimond.password = passD;
+            if (passS) state.accounts.subhashree.password = passS;
+            if (dt) state.startDate = dt;
+            state.firebaseUrl = fb;
+
+            saveLocalState();
+            refreshHeaderAndBadges();
+            pushMetaCloud({
+                accountsJson: JSON.stringify(state.accounts),
+                startDate: state.startDate
+            });
+            setupCloudSync();
+            closeModal('settingsModal');
+            showToast('Passwords & Settings Synced! 💖');
+        };
+
+        window.applyNewRoomCode = function() {
+            const code = document.getElementById('roomCodeInput').value.trim().toUpperCase();
+            if (!code) return;
+            state.roomCode = code;
+            saveLocalState();
+            setupCloudSync();
+            closeModal('roomModal');
+            showToast(`Joined Room: ${code} 🔑`);
+        };
+
+        window.copyShareInvite = function() {
+            const link = `${window.location.origin}${window.location.pathname}?room=${state.roomCode}`;
+            const inviteText = `💖 Subhashree Ma'am! Apne private "LoveLab" chat space pe aaja!\n🔗 Link: ${link}\n👤 Username: Subhashree | 🔒 Password: ${state.accounts.subhashree.password}\n🔑 Room Code: ${state.roomCode}`;
+            const ta = document.createElement('textarea');
+            ta.value = inviteText;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Invite Link & Credentials Copied! 📋');
+        };
+
+        /* -------------------- MASCOT FORMULAS, HEARTS, MUSIC & THEME -------------------- */
+        window.triggerMascotFormula = function() {
+            const f = SCIENCE_LOVE_FORMULAS[Math.floor(Math.random() * SCIENCE_LOVE_FORMULAS.length)];
+            document.getElementById('mascotSpeechText').textContent = `"${f}"`;
+            launchHearts(6);
+            playGentleTone(660);
+        };
+
+        window.cycleChatBannerFormula = function() {
+            const f = SCIENCE_LOVE_FORMULAS[Math.floor(Math.random() * SCIENCE_LOVE_FORMULAS.length)];
+            document.getElementById('chatBannerFormula').textContent = `Prof. Chashma: "${f}"`;
+            launchHearts(4);
+        };
+
+        function launchHearts(count = 8) {
+            const icons = ['💖', '💕', '❤️', '🧪', '✨', '🥰'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const el = document.createElement('div');
+                    el.className = 'floating-heart text-2xl';
+                    el.textContent = icons[Math.floor(Math.random() * icons.length)];
+                    el.style.left = (15 + Math.random() * 70) + '%';
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 2600);
+                }, i * 85);
+            }
+        }
+
+        function playGentleTone(freq = 560) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.25, ctx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.14);
+            } catch (e) {}
+        }
+
+        let musicLoop = null;
+        window.toggleMusicBox = function() {
+            const lbl = document.getElementById('musicMenuLabel');
+            if (musicLoop) {
+                clearInterval(musicLoop);
+                musicLoop = null;
+                lbl.textContent = 'Music Box Lullaby: OFF';
+                showToast('Music Box Paused 🔇');
+            } else {
+                const melody = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 783.99];
+                let step = 0;
+                playGentleTone(melody[0]);
+                musicLoop = setInterval(() => {
+                    step = (step + 1) % melody.length;
+                    playGentleTone(melody[step]);
+                }, 650);
+                lbl.textContent = 'Music Box Lullaby: ON 🎶';
+                showToast('Music Box Playing 🎶');
+            }
+        };
+
+        window.toggleTheme = function() {
+            const lbl = document.getElementById('themeMenuLabel');
+            if (state.theme === 'light') {
+                document.body.classList.add('theme-midnight');
+                state.theme = 'midnight';
+                lbl.textContent = 'Switch to Pastel Rose Mode';
+            } else {
+                document.body.classList.remove('theme-midnight');
+                state.theme = 'light';
+                lbl.textContent = 'Switch to Midnight Mode';
+            }
+            saveLocalState();
+        };
+
+        window.toggleLoveDrawer = () => document.getElementById('loveDrawer').classList.toggle('hidden');
+        window.toggleStickerTray = () => document.getElementById('stickerTray').classList.toggle('hidden');
+        window.toggleHeaderMenu = () => document.getElementById('headerMenu').classList.toggle('hidden');
+        window.openModal = (id) => {
+            if (id === 'settingsModal') {
+                document.getElementById('setPassDaimond').value = state.accounts.daimond.password;
+                document.getElementById('setPassSubhashree').value = state.accounts.subhashree.password;
+                document.getElementById('setStartDate').value = state.startDate;
+                document.getElementById('setFirebaseUrl').value = state.firebaseUrl;
+            }
+            document.getElementById(id).classList.remove('hidden');
+        };
+        window.closeModal = (id) => document.getElementById(id).classList.add('hidden');
+
+        window.clearChatHistory = function() {
+            Object.keys(state.messages).forEach((k) => {
+                if (roomNode) roomNode.get('messages').get(k).put({ deleted: true, timestamp: Date.now() });
+            });
+            state.messages = {};
+            localStorage.removeItem(`lovelab_ds_msgs_${state.roomCode}`);
+            renderMessages();
+            showToast('Chat History Cleared 🧹');
+        };
+
+        function showToast(msg) {
+            const pill = document.getElementById('toastPill');
+            pill.textContent = msg;
+            pill.classList.remove('hidden');
+            clearTimeout(window._toastTimeout);
+            window._toastTimeout = setTimeout(() => pill.classList.add('hidden'), 2600);
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* -------------------- INITIALIZE APP -------------------- */
+        if (state.theme === 'midnight') {
+            document.body.classList.add('theme-midnight');
+            document.getElementById('themeMenuLabel').textContent = 'Switch to Pastel Rose Mode';
+        }
+        refreshTogetherCounter();
+        setupCloudSync();
+
+        if (state.loggedInUser && state.accounts[state.loggedInUser]) {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('chatScreen').classList.remove('hidden');
+            refreshHeaderAndBadges();
+            renderMessages();
+        }
+    </script>
+</body>
+</html>
